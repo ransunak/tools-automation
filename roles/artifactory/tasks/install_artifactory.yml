@@ -1,0 +1,24 @@
+---
+- name: Install Artifactory repo
+  get_url: url=https://bintray.com/jfrog/artifactory-pro-rpms/rpm dest=/etc/yum.repos.d/bintray-jfrog-artifactory-pro-rpms.repo
+
+- name: Install Artifactory
+  yum: pkg={{ item }}
+  with_items:
+   - jfrog-artifactory-pro
+
+- name: Download and Unzip MySQL JDBC jar file
+  unarchive: src=https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.44.zip dest=/tmp/ remote_src=yes
+
+- name: Copy the MySQL JDBC jar file
+  copy: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: '/tmp/mysql-connector-java-5.1.44/mysql-connector-java-5.1.44-bin.jar', dest: '/opt/jfrog/artifactory/tomcat/lib/' }
+    - { src: '/var/opt/jfrog/artifactory/misc/db/mysql.properties', dest: '/etc/opt/jfrog/artifactory/db.properties' }
+ 
+- name: Update Mysql Configuration
+  template: src=../templates/db.properties dest=/etc/opt/jfrog/artifactory/db.properties
+
+- name: Restart the Artifactory service
+  service: name=artifactory state=restarted enabled=true
+

@@ -1,0 +1,39 @@
+---
+- include_vars: ../vars/default.yml
+- name: Install Mysql repo
+  yum: name=http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm state=present
+
+- name: Install Mysql 5.7
+  yum: pkg={{ item }}
+  with_items:
+   - mysql-community-server
+   - mysql-community-client
+   - MySQL-python
+
+- name: Start the Mysql service
+  service: name=mysqld state=started enabled=true
+
+- name: Find the temporaty password generated
+  shell: "echo `grep 'temporary.*root@localhost' /var/log/mysqld.log | sed 's/.*root@localhost: //'`"
+  register: mysql_root_password_temp
+  tags: register
+
+- name: Set the password from temporaty password
+  shell: 'mysql -e "SET PASSWORD = PASSWORD(''{{ Mysql_root_password }}'');" --connect-expired-password -u root -p"{{ mysql_root_password_temp.stdout }}"'
+  register: set_pass
+  failed_when: set_pass.rc >= 2
+
+- name: Remove test database if exists
+  mysql_db: name=test state=absent login_user={{ DB_USER }} login_password={{ Mysql_root_password }}
+
+- name: Remove all anonymous user accounts
+  mysql_user: name="" host_all=yes state=absent login_user={{ DB_USER }} login_password={{ Mysql_root_password }}
+
+- name: Change the root password
+  mysql_user: name=root password="{{ Mysql_root_password }}" login_user={{ DB_USER }} login_password={{ Mysql_root_password }}
+
+- name: Create database for Artifactory
+  mysql_db: name={{ Mysql_Database }} state=present encoding=utf8 login_user={{ DB_USER }} login_password={{ Mysql_root_password }}
+
+- name: Create Artifactory user and Grant  Privileges
+  mysql_user: name={{ Mysql_Username }} password={{ Mysql_Password }} priv={{ Mysql_Database }}.*:ALL state=present host={{ Mysql_Host }} login_user={{ DB_USER }} login_password={{ Mysql_root_password }}

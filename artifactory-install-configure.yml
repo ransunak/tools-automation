@@ -1,0 +1,15 @@
+---
+# This playbook install mysql server and Artifactory 
+
+- hosts: mysql
+  gather_facts: true
+  vars:
+      Mysql_Database: naveen
+      Mysql_Username: brownbox
+      Mysql_Password: Naveen@123
+      Mysql_Host: localhost
+  roles:
+    - role: mysql
+      packages_install_mysql: true
+    - role: artifactory
+      packages_install_artifactory: true

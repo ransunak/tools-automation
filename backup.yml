@@ -1,0 +1,8 @@
+---
+# This playbook install mysql server
+
+- hosts: application
+  gather_facts: true
+  roles:
+    - role: artifactory
+      packages_install_mysql: true      

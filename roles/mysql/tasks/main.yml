@@ -1,0 +1,6 @@
+---
+- include: install_mysql.yml
+- include_vars:
+    dir: 'vars'
+    files_matching: 'default.yml' 
+  when: "packages_install_mysql == true"

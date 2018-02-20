@@ -1,0 +1,9 @@
+---
+- name: Install mysql
+  yum:
+    name: '{{ item }}'
+    state: installed
+  with_items:
+    - mysql-server
+    - mysql-client
+    - python-mysqldb
