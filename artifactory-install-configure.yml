@@ -10,6 +10,6 @@
 - hosts: application
   gather_facts: true
   roles:
-     - role: artifactory
-#    - role: nginx
-#      install_self_signed_certs: true
+#     - role: artifactory
+     - role: nginx_config
+       install_self_signed_certs: true

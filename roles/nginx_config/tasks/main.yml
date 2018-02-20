@@ -1,8 +1,5 @@
 ---
-- include: install_nginx.yml
-  when: "install_self_signed_certs == false"
-
 - include: create_certs.yml
-- include: install_nginx.yml
   when: "install_self_signed_certs == true"
 
+- include: install_nginx.yml

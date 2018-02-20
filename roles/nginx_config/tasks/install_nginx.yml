@@ -1,11 +1,18 @@
 ---
-- name: Install Nginx
-  yum: pkg={{ item }}
-  with_items:
-   - nginx
+- name: install the nginx rpm from a remote repo
+  yum:
+    name: http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+    state: present
 
-- name: Update Nginx Configuration
-  template: src=../templates/nginx.conf dest=/etc/ngnix/conf.d/default.conf
+- name: Install Nginx Service
+  yum: name=nginx state=latest update_cache=true
+   
+
+#- name: Install PyOpenSSL
+#  pip: name=pyopenssl 
+
+#- name: Update Nginx Configuration
+#  template: src=../templates/nginx.conf dest=/etc/ngnix/conf.d/default.conf
 
 - name: Restart the Nginx service
   service: name=nginx state=restarted enabled=true

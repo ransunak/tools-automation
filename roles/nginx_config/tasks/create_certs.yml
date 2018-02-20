@@ -1,7 +1,13 @@
 ---
+- name: Instal PyOpenSSL
+  pip: name=PyOpenSSL>=0.15 state=present
+
+- name: Create SSL directory if not exists
+  file: path=/etc/nginx/ssl state=directory mode=0755
+
 - name: Create Self Signed Certificates for Nginx
   openssl_certificate:
-   path: /etc/ngnix/ssl/nginx.crt
-   privatekey_path: /etc/ngnix/ssl/nginx.pem
-   csr_path: /etc/ngnix/ssl/nginx.csr
-   provider: selfsigned
+    path: /etc/nginx/ssl/nginx.crt
+    privatekey_path: /etc/nginx/ssl/nginx.pem
+    csr_path: /etc/nginx/ssl/nginx.csr
+    provider: selfsigned
