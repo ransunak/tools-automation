@@ -6,8 +6,11 @@
   file: path=/etc/nginx/ssl state=directory mode=0755
 
 - name: Create Self Signed Certificates for Nginx
-  openssl_certificate:
-    path: /etc/nginx/ssl/nginx.crt
-    privatekey_path: /etc/nginx/ssl/nginx.pem
-    csr_path: /etc/nginx/ssl/nginx.csr
-    provider: selfsigned
+  command: openssl req -new -nodes -x509 -subj "/C=US/ST=Oregon/L=Portland/O=IT/CN=${ansible_fqdn}" -days 3650 -keyout /etc/nginx/ssl/server.key -out /etc/nginx/ssl/server.crt -extensions v3_ca creates=/etc/nginx/ssl/server.crt
+
+#- name: Create Self Signed Certificates for Nginx
+#  openssl_certificate:
+#    path: /etc/nginx/ssl/nginx.crt
+#    privatekey_path: /etc/nginx/ssl/nginx.pem
+#    csr_path: /etc/nginx/ssl/nginx.csr
+#    provider: selfsigned
