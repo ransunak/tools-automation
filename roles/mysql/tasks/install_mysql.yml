@@ -1,5 +1,5 @@
 ---
-- include_vars: ../vars/default.yml
+- include_vars: ../../vars/default.yml
 - name: Install Mysql repo
   yum: name=http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm state=present
 

@@ -1,0 +1,12 @@
+---
+- name: Install Nginx
+  yum: pkg={{ item }}
+  with_items:
+   - nginx
+
+- name: Update Nginx Configuration
+  template: src=../templates/nginx.conf dest=/etc/ngnix/conf.d/default.conf
+
+- name: Restart the Nginx service
+  service: name=nginx state=restarted enabled=true
+

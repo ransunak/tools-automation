@@ -1,0 +1,7 @@
+---
+- name: Create Self Signed Certificates for Nginx
+  openssl_certificate:
+   path: /etc/ngnix/ssl/nginx.crt
+   privatekey_path: /etc/ngnix/ssl/nginx.pem
+   csr_path: /etc/ngnix/ssl/nginx.csr
+   provider: selfsigned

@@ -1,0 +1,8 @@
+---
+Mysql_root_password: Naveen-123
+DB_USER: root
+Mysql_Database: naveen
+Mysql_Username: brownbox
+Mysql_Password: Naveen@123
+Mysql_Host: localhost
+

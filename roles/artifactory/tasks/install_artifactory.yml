@@ -1,11 +1,13 @@
 ---
+- include_vars: ../../vars/default.yml
 - name: Install Artifactory repo
   get_url: url=https://bintray.com/jfrog/artifactory-pro-rpms/rpm dest=/etc/yum.repos.d/bintray-jfrog-artifactory-pro-rpms.repo
 
-- name: Install Artifactory
+- name: Install Java and  Artifactory
   yum: pkg={{ item }}
   with_items:
    - jfrog-artifactory-pro
+   - java
 
 - name: Download and Unzip MySQL JDBC jar file
   unarchive: src=https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.44.zip dest=/tmp/ remote_src=yes
