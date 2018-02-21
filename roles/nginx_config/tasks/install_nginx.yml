@@ -10,6 +10,19 @@
 - name: Update Nginx Configuration
   template: src=../templates/nginx.conf dest=/etc/nginx/conf.d/default.conf
 
+- name: Allow SELinux on port 8081 to nginx process
+  shell: cat /var/log/audit/audit.log | grep nginx | grep denied | audit2allow -M mynginx
+    
+- name: Execute SELinux module
+  shell: semodule -i mynginx.pp
+  register: audit_result
+  failed_when: "audit_result.rc != 0"
+  changed_when: false
+
+
+#- debug: msg="{{ audit_result.stdout }}"
+- debug: msg="{{ audit_result.rc }}"
+
 - name: Restart the Nginx service
   service: name=nginx state=restarted enabled=true
 
