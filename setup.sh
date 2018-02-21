@@ -27,8 +27,8 @@ log_error() {
 
 distribution_id() {
     RETVAL=""
-    if [ -z "${RETVAL}" -a -e "/etc/redhat-release" ]; then
-        RELEASE_OUT=$(head -n1 /etc/redhat-release)
+    if [ -z "${RETVAL}" -a -e "/etc/system-release" ] || [ -z "${RETVAL}" -a -e "/etc/rhel-release" ]; then
+        RELEASE_OUT=$(head -n1 /etc/system-release)$(head -n1 /etc/rhel-release) 
         case "${RELEASE_OUT}" in
             Red\ Hat\ Enterprise\ Linux*)
                 RETVAL="rhel"
@@ -40,8 +40,11 @@ distribution_id() {
                 RETVAL="fedora"
                 ;;
         esac
+       echo $RETVAL
     fi
 } 
+
+distribution_id
 
 distribution_major_version() {
     for RELEASE_FILE in /etc/system-release \
