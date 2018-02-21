@@ -8,6 +8,9 @@
   with_items:
    - jfrog-artifactory-pro
    - java
+   - unzip
+   - zip
+   - wget
 
 - name: Download and Unzip MySQL JDBC jar file
   unarchive: src=https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.44.zip dest=/tmp/ remote_src=yes
