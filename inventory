@@ -1,7 +1,7 @@
 [application]
-#52.38.17.43 ansible_user=ec2-user ansible_ssh_private_key_file=/home/ec2-user/vpnkeypair.pem
+#54.244.166.48 ansible_user=ec2-user ansible_ssh_private_key_file=/home/ec2-user/vpnkeypair.pem
 localhost ansible_connection=local
 
 [mysql]
-#52.38.17.43 ansible_user=ec2-user ansible_ssh_private_key_file=/home/ec2-user/vpnkeypair.pem
+#54.149.246.143 ansible_user=ec2-user ansible_ssh_private_key_file=/home/ec2-user/vpnkeypair.pem
 localhost ansible_connection=local

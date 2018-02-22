@@ -1,4 +1,6 @@
 ---
+- name: Install Epel-release
+  yum: name=http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm state=present
 - name: Install Python-pip
   yum: name=python-pip state=latest update_cache=true
 

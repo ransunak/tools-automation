@@ -96,7 +96,7 @@ if [ $? -ne 0 ]; then
 fi
 
 #Run the playbook
-ansible-playbook -i "${INVENTORY_FILE}" $PLAYBOOK 2>&1 
+ANSIBLE_HOST_KEY_CHECKING=false ansible-playbook -i "${INVENTORY_FILE}" $PLAYBOOK 2>&1 
 
 # Save the exit code and output accordingly.
 RC=$?

@@ -4,7 +4,8 @@ DB_USER: root
 Mysql_Database: naveen
 Mysql_Username: brownbox
 Mysql_Password: Naveen@123
-Mysql_Host: localhost
-Artifactory_DNS: 54.213.212.24 
+Artifactory_Host: 54.244.166.48
+Mysql_Host: 54.149.246.143
+Artifactory_DNS: 54.244.166.48
 nginx_cert_path: /etc/nginx/ssl/nginx.crt
 nginx_key_path: /etc/nginx/ssl/nginx.key
