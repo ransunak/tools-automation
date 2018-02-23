@@ -3,7 +3,7 @@ Mysql_root_password: <Mysql_Root_Pass>
 DB_USER: root
 Mysql_Database: <Mysql_DB_Name>
 Mysql_Username: <Mysql_DB_User>
-Mysql_Password: Naveen@123
+Mysql_Password: <Mysql_DBUser_Pass>
 Artifactory_Host: <Art_Host>
 Mysql_Host: <Mysql_Host>
 Artifactory_DNS: <Art_DNS>
