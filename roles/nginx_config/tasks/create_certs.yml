@@ -1,4 +1,5 @@
 ---
+- include_vars: ../../vars/default.yml
 - name: Install Epel-release
   yum: name=http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm state=present
 - name: Install Python-pip
@@ -11,7 +12,7 @@
   file: path=/etc/nginx/ssl state=directory mode=0755
 
 - name: Create Self Signed Certificates for Nginx
-  command: openssl req -new -nodes -x509 -subj "/C=US/ST=Oregon/L=Portland/O=IT/CN=${ansible_fqdn}" -days 3650 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt -extensions v3_ca creates=/etc/nginx/ssl/nginx.crt
+  command: openssl req -new -nodes -x509 -subj "/C=US/ST=Oregon/L=Portland/O=IT/CN=${ansible_fqdn}" -days 3650 -keyout {{ nginx_key_path }} -out {{ nginx_cert_path }} -extensions v3_ca creates={{ nginx_cert_path }}
 
 #- name: Create Self Signed Certificates for Nginx
 #  openssl_certificate:
